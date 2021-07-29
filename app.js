@@ -13,4 +13,3 @@ dbConnection.authenticate()
     })
     .catch((err) => console.log(err))
 
-console.log("test for rebase")
