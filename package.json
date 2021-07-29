@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "test": "test",
-    "start": "node app.js",
     "dev": "nodemon"
   },
   "repository": {
