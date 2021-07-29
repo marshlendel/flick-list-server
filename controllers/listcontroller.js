@@ -1,9 +1,9 @@
-const router = require("express").Router
-const {ListModel} = require("../models");
+const router = require("express").Router();
+const { listModel } = require("../models");
 
 router.get("/", async(req, res) => {
     try{
-        const allMovies = await ListModel.findAll();
+        const allMovies = await listModel.findAll();
         res.status(200).json(movies);
     } catch(err) {
         res.status(500).json({ error: err });
@@ -38,3 +38,34 @@ router.put("/update", async (req, res) => {
         });
     }
 });
+
+
+// create/add
+router.post("/", async (req, res) => {
+    const {
+        title,
+        year,
+        overview,
+        watched,
+    } = req.body;
+
+try {
+    const List = await listModel.create({
+        title,
+        year,
+        overview,
+        watched,
+    });
+    res.status(201).json({
+    message: "List successfully created",
+    List,
+    });
+} catch (err) {
+    res.status(500).json({
+    message: `Failed to create list: ${err}`,
+    });
+}
+});
+
+module.exports= router;
+

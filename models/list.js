@@ -11,7 +11,6 @@ const List = dbConnection.define("list", {
     year: {
         type: DataTypes.INTEGER,
         allowNull: false,
-       
     },
 
     overview: {
