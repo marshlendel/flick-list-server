@@ -19,6 +19,9 @@ const List = dbConnection.define("list", {
     watched: {
         type: DataTypes.BOOLEAN,
         allowNull: false
+    },
+    owner: {
+        type: DataTypes.INTEGER
     }
 })
 
