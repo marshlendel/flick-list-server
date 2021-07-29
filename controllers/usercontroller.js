@@ -1,10 +1,12 @@
 const router = require("express").Router();
-const { UserModel } = require("../models");
-const { UniqueConstraintError } = require("sequelize/lib/errors");
+const { UniqueConstraintError } = require("sequelize");
+const {UserModel} = require("../models");
+const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs");
 
+//! Register
 router.post("/register", async (req, res) => {
-    let { username, email, password } = req.body.user;
+    let { username, email, password } = req.body;
     try {
     const User = await UserModel.create({
         username,
@@ -12,28 +14,29 @@ router.post("/register", async (req, res) => {
         password: bcrypt.hashSync(password, 13),
     });
 
-
     res.status(201).json({
         message: "User successfully registered",
         user: User,
-        sessionToken: token
+        // sessionToken: token
     });
 }catch (err) {
     if (err instanceof UniqueConstraintError) {
         res.status(409).json({
-            message: "Email already in use",
+            message: "Email/Username already in use",
         });
     } else {
     res.status(500).json({
-        message: "Failed to register user ${err}",
+        message: `Failed to register user: ${err}`
     });
     }
     }
 });
 
+
+//! Login
 router.post("/login", async (req, res) => {
-    let { username, email, password } = req.body.user;
-    
+    let {email, password } = req.body;
+
     try {
         let loginUser = await UserModel.findOne({
         where: {
