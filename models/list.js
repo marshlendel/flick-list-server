@@ -7,17 +7,20 @@ const List = dbConnection.define("list", {
         allowNull: false,
         unique: true
     },
-    runtime: {
+
+    year: {
         type: DataTypes.INTEGER,
         allowNull: false,
        
     },
-    genre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+
     overview: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    watched: {
+        type: DataTypes.BOOLEAN,
         allowNull: false
     }
 })
