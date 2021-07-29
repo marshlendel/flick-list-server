@@ -1,14 +1,13 @@
+const Express = require("express")
 const app = Express()
-
-app.use(Express.json());
-
-const controllers = require("./controllers");
-
-// app.use("/list", controllers.listModel)
-// app.use("/user", controllers.userModel)
 
 //! Imports
 const dbConnection = require("./db")
+const controllers = require("./controllers");
+
+app.use(Express.json());
+app.use("/list", controllers.listController)
+app.use("/user", controllers.userController)
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync())
