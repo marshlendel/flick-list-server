@@ -5,11 +5,13 @@ require("dotenv").config()
 //! Imports
 const dbConnection = require("./db")
 const controllers = require("./controllers");
-const validateSession = require("./middleware/validate-session")
+const middleware = require("./middleware")
+
 
 app.use(Express.json());
+app.use(middleware.CORS)
 app.use("/user", controllers.userController)
-app.use(validateSession)
+app.use(middleware.validateSession)
 app.use("/list", controllers.listController)
 
 
