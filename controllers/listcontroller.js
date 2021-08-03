@@ -45,13 +45,13 @@ router.post("/add", async (req, res) => {
       owner: id,
     });
     res.status(201).json({
-      message: "Movie successfully added",
+      message: "successfully added",
       AddedMovie,
     });
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       res.status(409).json({
-        message: "Movie already in watch list!",
+        message: "is already in your Watch List!",
       });
     } else {
       res.status(500).json({
