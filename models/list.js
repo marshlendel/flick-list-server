@@ -6,7 +6,7 @@ const List = dbConnection.define("list", {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: false
     },
     year: {
         type: DataTypes.INTEGER,

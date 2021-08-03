@@ -35,29 +35,37 @@ router.post("/add", async (req, res) => {
   const { id } = req.user;
 
   const { title, year, overview, watched } = req.body;
+  const alreadyInList = await ListModel.findAll({
+    where: {
+      owner: id,
+      title: title
+    }
+  })
 
   try {
-    const AddedMovie = await ListModel.create({
-      title,
-      year,
-      overview,
-      watched,
-      owner: id,
-    });
-    res.status(201).json({
-      message: "Movie successfully added",
-      AddedMovie,
-    });
-  } catch (err) {
-    if (err instanceof UniqueConstraintError) {
+    if(alreadyInList.length !== 0) {
       res.status(409).json({
-        message: "Movie already in watch list!",
+        message: "already in your Watch List",
+        copyMovie: alreadyInList
+      }) 
+    }else {
+      const AddedMovie = await ListModel.create({
+        title,
+        year,
+        overview,
+        watched,
+        owner: id,
       });
-    } else {
+      res.status(201).json({
+        message: "successfully added",
+        AddedMovie,
+      });
+    }  
+  } catch (err) {
       res.status(500).json({
         message: `Failed to add movie: ${err}`,
       });
-    }
+    
   }
 });
 
