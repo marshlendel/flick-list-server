@@ -45,7 +45,7 @@ router.post("/add", async (req, res) => {
   try {
     if(alreadyInList.length !== 0) {
       res.status(409).json({
-        message: "already in your Watch List",
+        message: "is already in your Watch List",
         copyMovie: alreadyInList
       }) 
     }else {
