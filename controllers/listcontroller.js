@@ -83,11 +83,11 @@ router.delete("/delete/:movieId", async (req, res) => {
     });
     if (deletedMovie) {
       res.status(200).json({
-        message: "movie removed from watch list",
+        message: "removed from watch list",
       });
     } else {
       res.status(404).json({
-        message: "Movie already not in watch list",
+        message: "already not in watch list",
       });
     }
   } catch (err) {
