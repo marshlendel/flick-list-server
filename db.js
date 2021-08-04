@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize")
-const dbConnection = new Sequelize(`postgres://postgres:${process.env.db_Password}@localhost:5432/flick-list`)
+const dbConnection = new Sequelize(process.env.DATABASE_URL, {
+    dialect: "postgres",
+    ssl: process.env.ENVIRONMENT === "production"
+})
 
 module.exports = dbConnection
-
